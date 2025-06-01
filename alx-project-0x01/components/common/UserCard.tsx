@@ -1,21 +1,21 @@
-// components/common/UserCard.tsx
+import React from "react";
+import { UserData } from "@/interfaces";
 
-import { UserProps } from "@/interfaces";
+interface UserCardProps {
+  user: UserData;
+}
 
-const UserCard: React.FC<{ user: UserProps }> = ({ user }) => {
+const UserCard: React.FC<UserCardProps> = ({ user }) => {
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 w-full sm:w-1/2 lg:w-1/3">
-      <h2 className="text-xl font-bold mb-2">{user.name}</h2>
-      <p className="text-gray-700">@{user.username}</p>
-      <p className="text-gray-700">{user.email}</p>
-      <p className="text-sm text-gray-500 mt-2">
-        {user.address.street}, {user.address.city}
-      </p>
-      <p className="text-sm text-gray-500">{user.phone}</p>
-      <p className="text-sm text-blue-500">{user.website}</p>
-      <div className="mt-4">
-        <p className="font-semibold">{user.company.name}</p>
-        <p className="italic text-gray-600">{user.company.catchPhrase}</p>
+    <div className="p-6 w-80 bg-white rounded-xl shadow-md border">
+      <h2 className="text-xl font-semibold mb-2">{user.name}</h2>
+      <p><strong>Username:</strong> {user.username}</p>
+      <p><strong>Email:</strong> {user.email}</p>
+      <p><strong>Phone:</strong> {user.phone}</p>
+      <p><strong>Website:</strong> <a href={`https://${user.website}`} className="text-blue-600 underline" target="_blank" rel="noreferrer">{user.website}</a></p>
+      <div className="mt-2 text-sm text-gray-600">
+        <p><strong>Company:</strong> {user.company.name}</p>
+        <p><strong>City:</strong> {user.address.city}</p>
       </div>
     </div>
   );

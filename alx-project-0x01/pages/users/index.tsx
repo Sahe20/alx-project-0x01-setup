@@ -1,19 +1,46 @@
+'use client';
+
 import Header from "@/components/layout/Header";
 import UserCard from "@/components/common/UserCard";
-import { UserProps } from "@/interfaces";
+import UserModal from "@/components/common/UserModal";
+import { UserData } from "@/interfaces";
+import { useState } from "react";
 
 interface UsersPageProps {
-  posts: UserProps[];
+  posts: UserData[];
 }
 
 const Users: React.FC<UsersPageProps> = ({ posts }) => {
+  const [users, setUsers] = useState<UserData[]>(posts);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAddUser = (user: UserData) => {
+    setUsers([...users, user]);
+  };
+
   return (
     <div>
       <Header />
       <main className="p-8">
         <h1 className="text-3xl font-semibold mb-6 text-center">Users</h1>
+
+        <div className="flex justify-center mb-6">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Add User
+          </button>
+        </div>
+
+        <UserModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleAddUser}
+        />
+
         <div className="flex flex-wrap gap-6 justify-center">
-          {posts.map((user) => (
+          {users.map((user) => (
             <UserCard key={user.id} user={user} />
           ))}
         </div>
@@ -32,5 +59,4 @@ export async function getStaticProps() {
     },
   };
 }
-
 export default Users;

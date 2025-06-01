@@ -28,3 +28,17 @@ export interface UserProps {
     bs: string;
   };
 }
+
+// Post data structure
+export interface PostData {
+  userId: number;
+  id?: number;
+  title: string;
+  body: string;
+}
+
+// Props for the PostModal component
+export interface PostModalProps {
+  onClose: () => void;
+  onSubmit: (post: PostData) => void;
+}
